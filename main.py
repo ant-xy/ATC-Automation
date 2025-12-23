@@ -22,7 +22,7 @@ except FileNotFoundError:
     print(f"[{Fore.RED}*{Style.RESET_ALL}] Data does not exist, initializing.")
     downloadRun("https://davidmegginson.github.io/ourairports-data/airports.csv", fileName) 
 
-print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Welcome to this application!{Style.RESET_ALL}\n1: Create Route\n2: Edit Route\n3: Print Route")
+print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Welcome to this application!\n[1]: Create Route\n[2]: Print Route")
 
 dbAirports = []
 
@@ -78,7 +78,7 @@ def airportSelect():
     airport = None
 
     while not airport:
-        airportName = input(f"[{Fore.GREEN}*{Style.RESET_ALL}]Please enter airport: ")
+        airportName = input(f"[{Fore.GREEN}*{Style.RESET_ALL}] Please enter airport: ")
         potentialAirports = searchAirport(airportName, 90)
         outputAirports(potentialAirports, 3)
         
@@ -99,26 +99,8 @@ def airportSelect():
 routes = []
 
 while True:
+
     option = input(f"{Fore.BLUE}>>>{Style.RESET_ALL} ")
-
-    if int(option) == 1000:
-        while True:
-            print(f"[{Fore.GREEN}*{Style.RESET_ALL}]Enter name of the route: ")
-            
-            name = input(">>> ")
-            routeTaken = False
-
-            for route in routes:
-                if route.routeName == name:
-                    print(f"[{Fore.YELLOW}*{Style.RESET_ALL}] Route already exists! Try again.")
-                    routeTaken = True
-                    break
-            if routeTaken == True:
-                continue
-
-            routes.append(Route(name, None, None, None, None))
-            print("[{Fore.GREEN}*{Style.RESET_ALL}] Route successfully made!")
-            break
 
     if int(option) == 1:
         print(f"[{Fore.GREEN}*{Style.RESET_ALL}] To create a route, please follow the following instruction:")
@@ -138,9 +120,6 @@ while True:
         
         primAirport = Path(primaryAirport[0], primaryAirport[1], primaryAirport[2], None)
         secAirport = Path(secondAirport[0], secondAirport[1], secondAirport[2], None)
-
-        #print("Initialized:", primaryAirport[0], primaryAirport[1], primaryAirport[2])
-        
 
         route = None
 
@@ -172,9 +151,12 @@ while True:
         totalDistance = haversineDistance(lat1, lat2, lon1, lon2)
         route.totalDistance = totalDistance
         
-    if int(option) == 3:
+        print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Route has been made!")
+    if int(option) == 2:
         
         for route in routes:
             print("-------------------------------------------------------")
             print(route)
             print("-------------------------------------------------------")
+    
+    print(f"\n[{Fore.GREEN}*{Style.RESET_ALL}] Choose from the following:\n[1]: Create Route\n[2]: Print Route")
