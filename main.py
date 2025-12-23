@@ -1,4 +1,5 @@
 from haversine import distance as haversineDistance
+from download import downloadRun
 from fuzzywuzzy import fuzz
 
 from colorama import init as colorama_init
@@ -10,11 +11,22 @@ import csv
 import time
 
 colorama_init()
+
+fileName = "airports.csv"
+
+try:
+    # Attempt to open the file
+    with open(f'data/{fileName}', 'r') as file:
+        pass 
+except FileNotFoundError:
+    print(f"[{Fore.RED}*{Style.RESET_ALL}] Data does not exist, initializing.")
+    downloadRun("https://davidmegginson.github.io/ourairports-data/airports.csv", fileName) 
+
 print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Welcome to this application!{Style.RESET_ALL}\n1: Create Route\n2: Edit Route\n3: Print Route")
 
 dbAirports = []
 
-with open('data/fixed.csv', newline='') as f:
+with open(f'data/{fileName}', newline='') as f:
     reader = csv.reader(f)
 
     for row in reader:
@@ -22,7 +34,7 @@ with open('data/fixed.csv', newline='') as f:
 
 def searchAirport(airport : str, threshold: int) -> list: # 90%
 
-    with open('data/fixed.csv', newline = '') as f:
+    with open(f'data/{fileName}', newline = '') as f:
         tempAirportSelections = []
         reader = csv.reader(f)
 

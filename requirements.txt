@@ -1,6 +1,9 @@
+certifi==2025.11.12
+charset-normalizer==3.4.4
 colorama==0.4.6
 evdev==1.9.2
 fuzzywuzzy==0.18.0
+idna==3.11
 Levenshtein==0.27.3
 linkify-it-py==2.0.3
 markdown-it-py==4.0.0
@@ -10,8 +13,10 @@ platformdirs==4.5.0
 Pygments==2.19.2
 python-xlib==0.33
 RapidFuzz==3.14.3
+requests==2.32.5
 rich==14.2.0
 six==1.17.0
 textual==6.6.0
 typing_extensions==4.15.0
 uc-micro-py==1.0.3
+urllib3==2.6.2
