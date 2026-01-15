@@ -19,7 +19,7 @@ print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Welcome to this application!\n[1]: Crea
 
 dbAirports = []
 
-with open(csvFile, newline='') as f:
+with open(csvFile, newline='', encoding="utf8") as f:
     reader = csv.reader(f)
 
     for row in reader:
@@ -27,7 +27,7 @@ with open(csvFile, newline='') as f:
 
 def searchAirport(airport : str, threshold: int) -> list: # 90%
 
-    with open(csvFile, newline = '') as f:
+    with open(csvFile, newline = '', encoding="utf8") as f:
         tempAirportSelections = []
         reader = csv.reader(f)
 

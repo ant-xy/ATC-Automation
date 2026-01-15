@@ -1,4 +1,5 @@
 - make sure you have Python and Git installed.
+- remove evdev from the requirements.txt if the project fails to download packages and try again.
 
 # Cloning
 ## Linux
@@ -13,10 +14,7 @@ source .env/bin/activate
 ## Windows
 
 ```
-git clone https://github.com/ant-xy/ATC-Automation.git &&
-cd ATC-Automation &&
-py -m venv .env &&
-source .env/bin/activate
+git clone https://github.com/ant-xy/ATC-Automation.git && cd ATC-Automation && python -m venv .env && source .env\Scripts\activate
 ```
 
 # Installation
@@ -27,13 +25,13 @@ python -m pip install -r requirements.txt
 
 ## Windows
 ```
-py -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 # Running
 
 ```
-python3 main.py
+python main.py
 ```
 
 # Credits

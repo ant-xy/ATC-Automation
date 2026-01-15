@@ -18,7 +18,7 @@ def downloadFile(url, path):
         response = requests.get(url)
         
         if response.status_code == 200:
-            with open(path, 'wb') as file:
+            with open(path, 'wb', encoding="utf8") as file:
                 file.write(response.content)
             print(f"[{Fore.GREEN}*{Style.RESET_ALL}] File downloaded in path: {path}")
             return True
@@ -42,12 +42,12 @@ def downloadRun(url, fileName):
 
         c = 1
 
-        with open(tempFile, newline='') as f:
+        with open(tempFile, newline='', encoding="utf8") as f:
             reader = csv.reader(f)
             for row in reader:
                 dbAirports.append([row[3],row[4],row[5],row[10],row[2]])
 
-        with open(csvFile, "w", newline='') as file:
+        with open(csvFile, "w", newline='', encoding="utf8") as file:
             writer = csv.writer(file)
             writer.writerows(dbAirports)
 
