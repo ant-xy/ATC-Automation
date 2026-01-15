@@ -14,7 +14,7 @@ source .env/bin/activate
 ## Windows
 
 ```
-git clone https://github.com/ant-xy/ATC-Automation.git && cd ATC-Automation && python -m venv .env && source .env\Scripts\activate
+git clone https://github.com/ant-xy/ATC-Automation.git && cd ATC-Automation && python -m venv .env && .env\Scripts\activate
 ```
 
 # Installation
