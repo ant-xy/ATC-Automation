@@ -1,5 +1,5 @@
 from haversine import distance as haversineDistance
-from download import downloadRun
+from download import *
 from fuzzywuzzy import fuzz
 
 from colorama import init as colorama_init
@@ -9,24 +9,17 @@ from colorama import Style
 import math
 import csv
 import time
+from pathlib import Path
 
 colorama_init()
 
-fileName = "airports.csv"
-
-try:
-    # Attempt to open the file
-    with open(f'data/{fileName}', 'r') as file:
-        pass 
-except FileNotFoundError:
-    print(f"[{Fore.RED}*{Style.RESET_ALL}] Data does not exist, initializing.")
-    downloadRun("https://davidmegginson.github.io/ourairports-data/airports.csv", fileName) 
+csvFile = initializeData()
 
 print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Welcome to this application!\n[1]: Create Route\n[2]: Print Route")
 
 dbAirports = []
 
-with open(f'data/{fileName}', newline='') as f:
+with open(csvFile, newline='') as f:
     reader = csv.reader(f)
 
     for row in reader:
@@ -34,7 +27,7 @@ with open(f'data/{fileName}', newline='') as f:
 
 def searchAirport(airport : str, threshold: int) -> list: # 90%
 
-    with open(f'data/{fileName}', newline = '') as f:
+    with open(csvFile, newline = '') as f:
         tempAirportSelections = []
         reader = csv.reader(f)
 
@@ -74,13 +67,14 @@ class Route:
     def __str__(self):
         return f"Route Name: {self.routeName}\nAircraft Type: {self.aircraftType}\nAircraft ID: {self.aircraftID}\nPrimary Airport: {self.primAirport.airport}\nSecondary Airport: {self.secAirport.airport}\nTotal Distance: {self.totalDistance} km"
 
-def airportSelect():
+def airportSelect(status):
     airport = None
 
     while not airport:
+        print("From Airport: " if status == "primary" else "To Airport")
         airportName = input(f"[{Fore.GREEN}*{Style.RESET_ALL}] Please enter airport: ")
         potentialAirports = searchAirport(airportName, 90)
-        outputAirports(potentialAirports, 3)
+        outputAirports(potentialAirports, 8)
         
         print(f"[{Fore.YELLOW}*{Style.RESET_ALL}] Please select an airport from the following using the index.")
         option = int(input(">>> "))
@@ -94,7 +88,6 @@ def airportSelect():
         except:
             print(f"[{Fore.RED}*{Style.RESET_ALL}] Something went wrong.{Style.RESET_ALL}")
     return airport
-
 
 routes = []
 
@@ -114,8 +107,9 @@ while True:
         # airport selection
         
         print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Please select your Primary and Secondary airports in the respective order.")
-        primaryAirport = airportSelect()
-        secondAirport = airportSelect()
+
+        primaryAirport = airportSelect("primary")
+        secondAirport = airportSelect("secondary")
 
         
         primAirport = Path(primaryAirport[0], primaryAirport[1], primaryAirport[2], None)

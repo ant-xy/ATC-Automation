@@ -5,7 +5,13 @@ from colorama import init as colorama_init
 from colorama import Fore
 from colorama import Style
 
+from pathlib import Path
 # Download File
+
+fileName = "airports.csv"
+p = Path('.')
+
+csvFile = p / "data" / fileName
 
 def downloadFile(url, path):
     try:
@@ -25,7 +31,9 @@ def downloadFile(url, path):
 
 
 def downloadRun(url, fileName):
-    fileDownloaded = downloadFile(url, "data/temp.csv")
+
+    tempFile = p / "data" / "temp.csv"
+    fileDownloaded = downloadFile(url, tempFile)
 
     if fileDownloaded:
         dbAirports = [
@@ -34,14 +42,23 @@ def downloadRun(url, fileName):
 
         c = 1
 
-        with open(f'data/temp.csv', newline='') as f:
+        with open(tempFile, newline='') as f:
             reader = csv.reader(f)
             for row in reader:
                 dbAirports.append([row[3],row[4],row[5],row[10],row[2]])
 
-        with open(f"data/{fileName}", "w", newline='') as file:
+        with open(csvFile, "w", newline='') as file:
             writer = csv.writer(file)
             writer.writerows(dbAirports)
 
 
-        print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Data all initialized in path: data/{fileName}\n")
+        print(f"[{Fore.GREEN}*{Style.RESET_ALL}] Data all initialized in path: {tempFile}\n")
+
+
+def initializeData():
+    if csvFile.exists():
+        pass
+    else:
+        print(f"[{Fore.RED}*{Style.RESET_ALL}] Data does not exist, initializing.")
+        downloadRun("https://davidmegginson.github.io/ourairports-data/airports.csv", csvFile) 
+    return csvFile 
