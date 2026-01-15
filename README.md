@@ -1,5 +1,5 @@
 - make sure you have Python and Git installed.
-- remove evdev from the requirements.txt if the project fails to download packages and try again.
+- ensure you have the latest python version installed.
 
 # Cloning
 ## Linux
